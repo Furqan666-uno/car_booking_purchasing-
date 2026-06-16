@@ -1,0 +1,1512 @@
+openapi: 3.0.3
+info:
+  title: Car Rental & Sales API
+  version: 1.0.0
+  description: Backend API for Car Rental & Sales Platform
+paths:
+  /api/bookings/cancel/{booking_id}/:
+    patch:
+      operationId: bookings_cancel_partial_update
+      parameters:
+      - in: path
+        name: booking_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - bookings
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/bookings/create/:
+    post:
+      operationId: bookings_create_create
+      tags:
+      - bookings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Booking'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Booking'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Booking'
+        required: true
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+          description: ''
+  /api/bookings/history/:
+    get:
+      operationId: bookings_history_list
+      tags:
+      - bookings
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Booking'
+          description: ''
+  /api/cars/:
+    get:
+      operationId: list_cars
+      tags:
+      - cars
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Car'
+          description: ''
+  /api/cars/{car_id}/car-images/:
+    get:
+      operationId: cars_car_images_list
+      parameters:
+      - in: path
+        name: car_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - cars
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CarImage'
+          description: ''
+  /api/cars/{car_id}/upload-image/:
+    post:
+      operationId: cars_upload_image_create
+      parameters:
+      - in: path
+        name: car_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - cars
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CarImage'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CarImage'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CarImage'
+        required: true
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarImage'
+          description: ''
+  /api/cars/{id}/:
+    get:
+      operationId: list_cars_2
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - cars
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Car'
+          description: ''
+  /api/cars/create/:
+    post:
+      operationId: cars_create_create
+      tags:
+      - cars
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Car'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Car'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Car'
+        required: true
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+          description: ''
+  /api/cars/delete/{id}/:
+    delete:
+      operationId: cars_delete_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - cars
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/cars/images/{image_id}/delete/:
+    delete:
+      operationId: cars_images_delete_destroy
+      parameters:
+      - in: path
+        name: image_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - cars
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/cars/update/{id}/:
+    put:
+      operationId: cars_update_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - cars
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Car'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Car'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Car'
+        required: true
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+          description: ''
+    patch:
+      operationId: cars_update_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - cars
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCar'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCar'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCar'
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+          description: ''
+  /api/change-password/:
+    put:
+      operationId: change_password_update
+      tags:
+      - change-password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Profile'
+        required: true
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+  /api/chat/create/{car_id}/:
+    post:
+      operationId: chat_create_create
+      parameters:
+      - in: path
+        name: car_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - chat
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Conversation'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Conversation'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Conversation'
+        required: true
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversation'
+          description: ''
+  /api/chat/messages/{conversation_id}/:
+    get:
+      operationId: chat_messages_list
+      parameters:
+      - in: path
+        name: conversation_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - chat
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
+          description: ''
+  /api/chat/send/{conversation_id}/:
+    post:
+      operationId: chat_send_create
+      parameters:
+      - in: path
+        name: conversation_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - chat
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Message'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Message'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Message'
+        required: true
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+          description: ''
+  /api/dashboard/admin/:
+    get:
+      operationId: dashboard_admin_retrieve
+      tags:
+      - dashboard
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/dashboard/seller/:
+    get:
+      operationId: dashboard_seller_retrieve
+      tags:
+      - dashboard
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/dashboard/staff/:
+    get:
+      operationId: dashboard_staff_retrieve
+      tags:
+      - dashboard
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/forgot-password/:
+    post:
+      operationId: forgot_password_create
+      tags:
+      - forgot-password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Profile'
+        required: true
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+  /api/login/:
+    post:
+      operationId: login_create
+      tags:
+      - login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Login'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Login'
+        required: true
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/payments/cancel/{payment_id}/:
+    patch:
+      operationId: payments_cancel_partial_update
+      parameters:
+      - in: path
+        name: payment_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - payments
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/payments/create/:
+    post:
+      operationId: payments_create_create
+      tags:
+      - payments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Payment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Payment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Payment'
+        required: true
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+          description: ''
+  /api/payments/history/:
+    get:
+      operationId: payments_history_list
+      tags:
+      - payments
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Payment'
+          description: ''
+  /api/profile/:
+    get:
+      operationId: profile_retrieve
+      tags:
+      - profile
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+    put:
+      operationId: profile_update
+      tags:
+      - profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Profile'
+        required: true
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+    patch:
+      operationId: profile_partial_update
+      tags:
+      - profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProfile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedProfile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedProfile'
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+  /api/purchases/cancel/{purchase_id}/:
+    patch:
+      operationId: purchases_cancel_partial_update
+      parameters:
+      - in: path
+        name: purchase_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - purchases
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/purchases/create/:
+    post:
+      operationId: purchases_create_create
+      tags:
+      - purchases
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Purchase'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Purchase'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Purchase'
+        required: true
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Purchase'
+          description: ''
+  /api/purchases/history/:
+    get:
+      operationId: purchases_history_list
+      tags:
+      - purchases
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Purchase'
+          description: ''
+  /api/register/:
+    post:
+      operationId: register_create
+      tags:
+      - register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Registration'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Registration'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Registration'
+        required: true
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Registration'
+          description: ''
+  /api/reset-password/:
+    post:
+      operationId: reset_password_create
+      tags:
+      - reset-password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Profile'
+        required: true
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+  /api/schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - ht
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - ug
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - jwtAuth: []
+      - BearerAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/token/:
+    post:
+      operationId: token_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+        required: true
+      security:
+      - BearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+  /api/token/refresh/:
+    post:
+      operationId: token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      security:
+      - BearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+components:
+  schemas:
+    Booking:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        user:
+          type: string
+          readOnly: true
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        pickup_date:
+          type: string
+          format: date
+        return_date:
+          type: string
+          format: date
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StatusEnum'
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        car:
+          type: string
+          format: uuid
+      required:
+      - car
+      - created_at
+      - id
+      - pickup_date
+      - price
+      - return_date
+      - status
+      - user
+    Car:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        owner:
+          type: string
+          readOnly: true
+        car_model:
+          type: string
+          maxLength: 50
+        brand:
+          type: string
+          maxLength: 50
+        release_year:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        fuel_type:
+          $ref: '#/components/schemas/FuelTypeEnum'
+        transmission_type:
+          $ref: '#/components/schemas/TransmissionTypeEnum'
+        seats:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        listing_type:
+          $ref: '#/components/schemas/ListingTypeEnum'
+        renting_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        selling_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        available_for_rent:
+          type: boolean
+        available_for_sale:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        is_available:
+          type: boolean
+      required:
+      - brand
+      - car_model
+      - created_at
+      - fuel_type
+      - id
+      - owner
+      - release_year
+      - seats
+      - transmission_type
+    CarImage:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        image:
+          type: string
+          format: uri
+        uploaded_at:
+          type: string
+          format: date-time
+          readOnly: true
+        car:
+          type: string
+          format: uuid
+      required:
+      - car
+      - id
+      - image
+      - uploaded_at
+    Conversation:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        seller:
+          type: string
+          readOnly: true
+        buyer:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        car:
+          type: string
+          format: uuid
+      required:
+      - buyer
+      - car
+      - created_at
+      - id
+      - seller
+    FuelTypeEnum:
+      enum:
+      - PETROL
+      - DIESEL
+      - ELECTRIC
+      type: string
+      description: |-
+        * `PETROL` - Petrol
+        * `DIESEL` - Diesel
+        * `ELECTRIC` - Electric
+    ListingTypeEnum:
+      enum:
+      - RENT
+      - SELL
+      - BOTH
+      type: string
+      description: |-
+        * `RENT` - Rent
+        * `SELL` - Sell
+        * `BOTH` - Rent & Sale
+    Login:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - email
+      - password
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        sender:
+          type: string
+          readOnly: true
+        text:
+          type: string
+        file:
+          type: string
+          format: uri
+          nullable: true
+        image:
+          type: string
+          format: uri
+          nullable: true
+        is_read:
+          type: boolean
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        conversation:
+          type: string
+          format: uuid
+          readOnly: true
+      required:
+      - conversation
+      - created_at
+      - id
+      - is_read
+      - sender
+      - text
+    PatchedCar:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        owner:
+          type: string
+          readOnly: true
+        car_model:
+          type: string
+          maxLength: 50
+        brand:
+          type: string
+          maxLength: 50
+        release_year:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        fuel_type:
+          $ref: '#/components/schemas/FuelTypeEnum'
+        transmission_type:
+          $ref: '#/components/schemas/TransmissionTypeEnum'
+        seats:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        listing_type:
+          $ref: '#/components/schemas/ListingTypeEnum'
+        renting_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        selling_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        available_for_rent:
+          type: boolean
+        available_for_sale:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        is_available:
+          type: boolean
+    PatchedProfile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        username:
+          type: string
+          maxLength: 100
+        photo:
+          type: string
+          format: uri
+          nullable: true
+        email:
+          type: string
+          format: email
+          readOnly: true
+        phone_no:
+          type: string
+          maxLength: 12
+        role:
+          allOf:
+          - $ref: '#/components/schemas/ProfileRoleEnum'
+          readOnly: true
+    Payment:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        user:
+          type: string
+          readOnly: true
+        amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        payment_method:
+          $ref: '#/components/schemas/PaymentMethodEnum'
+        payment_status:
+          allOf:
+          - $ref: '#/components/schemas/PaymentStatusEnum'
+          readOnly: true
+        transaction_id:
+          type: string
+          readOnly: true
+        paid_at:
+          type: string
+          format: date-time
+          readOnly: true
+        booking:
+          type: string
+          format: uuid
+          nullable: true
+        purchase:
+          type: string
+          format: uuid
+          nullable: true
+      required:
+      - amount
+      - id
+      - paid_at
+      - payment_method
+      - payment_status
+      - transaction_id
+      - user
+    PaymentMethodEnum:
+      enum:
+      - CASH
+      - CARD
+      - UPI
+      - NET BANKING
+      type: string
+      description: |-
+        * `CASH` - Cash
+        * `CARD` - Card
+        * `UPI` - UPI
+        * `NET BANKING` - Net Banking
+    PaymentStatusEnum:
+      enum:
+      - PENDING
+      - CONFIRMED
+      - CANCELLED
+      type: string
+      description: |-
+        * `PENDING` - Pending
+        * `CONFIRMED` - Confirmed
+        * `CANCELLED` - Cancelled
+    Profile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        username:
+          type: string
+          maxLength: 100
+        photo:
+          type: string
+          format: uri
+          nullable: true
+        email:
+          type: string
+          format: email
+          readOnly: true
+        phone_no:
+          type: string
+          maxLength: 12
+        role:
+          allOf:
+          - $ref: '#/components/schemas/ProfileRoleEnum'
+          readOnly: true
+      required:
+      - email
+      - id
+      - phone_no
+      - role
+      - username
+    ProfileRoleEnum:
+      enum:
+      - ADMIN
+      - STAFF
+      - CUSTOMER
+      - SELLER
+      type: string
+      description: |-
+        * `ADMIN` - Admin
+        * `STAFF` - Staff
+        * `CUSTOMER` - Customer
+        * `SELLER` - Seller
+    Purchase:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        buyer:
+          type: string
+          readOnly: true
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StatusEnum'
+          readOnly: true
+        purchased_at:
+          type: string
+          format: date-time
+          readOnly: true
+        car:
+          type: string
+          format: uuid
+      required:
+      - buyer
+      - car
+      - id
+      - price
+      - purchased_at
+      - status
+    Registration:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        username:
+          type: string
+          maxLength: 100
+        photo:
+          type: string
+          format: uri
+          nullable: true
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        password:
+          type: string
+          writeOnly: true
+          minLength: 3
+        password2:
+          type: string
+          writeOnly: true
+          minLength: 3
+        phone_no:
+          type: string
+          maxLength: 12
+        role:
+          allOf:
+          - $ref: '#/components/schemas/RegistrationRoleEnum'
+          default: CUSTOMER
+        is_online:
+          type: boolean
+      required:
+      - email
+      - id
+      - password
+      - password2
+      - phone_no
+      - username
+    RegistrationRoleEnum:
+      enum:
+      - CUSTOMER
+      - SELLER
+      type: string
+      description: |-
+        * `CUSTOMER` - Customer
+        * `SELLER` - Seller
+    StatusEnum:
+      enum:
+      - PENDING
+      - CONFIRMED
+      - CANCELLED
+      type: string
+      description: |-
+        * `PENDING` - Pending
+        * `CONFIRMED` - Confirmed
+        * `CANCELLED` - Cancelled
+    TokenObtainPair:
+      type: object
+      properties:
+        email:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - email
+      - password
+      - refresh
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
+    TransmissionTypeEnum:
+      enum:
+      - AUTOMATIC
+      - MANUAL
+      type: string
+      description: |-
+        * `AUTOMATIC` - Automatic
+        * `MANUAL` - Manual
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
