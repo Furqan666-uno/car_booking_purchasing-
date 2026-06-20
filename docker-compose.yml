@@ -1,0 +1,57 @@
+services:
+  redis:
+    image: redis:7
+    container_name: redis_cont
+    restart: always
+    ports:
+      - '6379:6379'
+    
+  db:
+    image: postgres:17
+    container_name: postgres_db
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - '5432:5432'
+
+  app:
+    build: .
+    container_name: django_app
+    volumes:
+      - .:/app
+      - media_data:/app/media
+    command: > 
+      sh -c "python manage.py makemigrations && 
+            python manage.py migrate && 
+            python manage.py collectstatic --noinput &&
+            daphne -b 0.0.0.0 -p 8000 backend.asgi:application"
+    ports:
+      - '8000:8000'
+    env_file:
+      - .env.docker
+    depends_on:
+      - db
+      - redis
+
+  celery:
+    build: .
+    container_name: celery
+    restart: always    
+    command: celery -A backend worker -l info 
+    volumes:
+      - .:/app
+      - media_data:/app/media
+    env_file:
+      - .env.docker
+    depends_on:
+      - db
+      - redis
+  
+volumes:
+  postgres_data: 
+  media_data: 
