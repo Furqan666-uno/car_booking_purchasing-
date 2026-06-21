@@ -184,6 +184,25 @@ Features:
 
 ---
 
+## Architecture
+
+Client
+ |
+ |
+Django REST Framework
+ |
+ |------ PostgreSQL
+ |
+ |------ Redis
+ |          |
+ |          |------ Celery Workers
+ |
+ |------ Django Channels
+            |
+            |------ WebSocket Chat
+
+ ---
+
 ## Tech Stack
 
 ### Backend
@@ -218,11 +237,11 @@ Features:
 
 ---
 
-## Installation
+## Installation ( to run without using dockerfiles)
 
 ### Clone Repository
 
-git clone <repository-url>
+git clone https://github.com/Furqan666-uno/car_booking_purchasing-.git
 
 cd project
 
@@ -238,7 +257,7 @@ pip install -r requirements.txt
 
 ### Environment Variables
 
-Create .env using given .env.example
+Create .env ( using .env.example)
 
 ### Make/Run Migrations
 
@@ -252,7 +271,7 @@ python manage.py createsuperuser
 
 ### Start Server
 
-python manage.py runserver
+daphne -b 0.0.0.0 -p 8000 backend.asgi:application
 
 ### Start Redis
 
@@ -265,6 +284,46 @@ celery -A backend worker --pool=solo -l info ( For Windows)
 celery -A backend worker -l info ( For Linux)
 
 ---
+
+## Docker Setup
+
+This project is containerized using Docker and Docker-Compose.
+
+This project runs with separate containers for:
+
+- Django ASGI application (Daphne)
+- PostgreSQL database
+- Redis server
+- Celery worker
+
+
+### Services
+
+| Service | Purpose |
+|---------|---------|
+| django_app | to run Django backend using Daphne ASGI server |
+| postgres_db | to store application data |
+| redis_cont | to message broker for Celery and Django Channels |
+| celery | to handle background tasks |
+
+
+### Running with Docker
+
+Clone repository:
+
+git clone <repository-url>
+
+Go inside project:
+
+cd backend
+
+Build and start containers:
+
+docker compose up --build
+
+To stop containers:
+
+docker compose down
 
 ## API Documentation
 
@@ -293,4 +352,5 @@ This project can helped gain experience with:
 * Transaction Management
 * Background Processing
 * Real-Time Communication
+* Dockerization
 * API Documentation
