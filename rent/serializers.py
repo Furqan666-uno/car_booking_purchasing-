@@ -27,6 +27,11 @@ class RegistrationSerializer(serializers.ModelSerializer):
         if len(value) < 4: # value=username
             raise serializers.ValidationError({'username':'Username is too short. Should be atleast of four letters'}) 
         return value
+
+    def validate_photo(self, value):
+        if value.size > 5*1024*1024:
+            raise serializers.ValidationError({'photo':'Image cannot exceed 5MB.'}) 
+        return value
     
     def validate_phone_no(self, value):
         if not value.isdigit():
