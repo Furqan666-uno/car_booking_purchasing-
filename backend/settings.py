@@ -10,7 +10,7 @@ load_dotenv(BASE_DIR/".env")
 SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG")=="True"
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(',')
-CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",")
+CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",") # add for deployment purpose.
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -73,6 +73,8 @@ AUTH_USER_MODEL= 'rent.User' # plz do this before migration, or else will have t
 #         "PORT": os.getenv("DB_PORT"),
 #     }
 # }
+# the above variables are removed and replace by variable below for deployemnt purposes. 
+# For running locally on machines, use above variables. 
 DATABASES = {
     "default": dj_database_url.config(
         default=os.getenv("DATABASE_URL")

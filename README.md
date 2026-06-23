@@ -184,25 +184,6 @@ Features:
 
 ---
 
-## Architecture
-
-Client
- |
- |
-Django REST Framework
- |
- |------ PostgreSQL
- |
- |------ Redis
- |          |
- |          |------ Celery Workers
- |
- |------ Django Channels
-            |
-            |------ WebSocket Chat
-
- ---
-
 ## Tech Stack
 
 ### Backend
@@ -237,7 +218,7 @@ Django REST Framework
 
 ---
 
-## Installation ( to run without using dockerfiles)
+## Installation 
 
 ### Clone Repository
 
@@ -257,7 +238,7 @@ pip install -r requirements.txt
 
 ### Environment Variables
 
-Create .env ( using .env.example)
+create .env ( using .env.example)
 
 ### Make/Run Migrations
 
@@ -287,9 +268,7 @@ celery -A backend worker -l info ( For Linux)
 
 ## Docker Setup
 
-This project is containerized using Docker and Docker-Compose.
-
-This project runs with separate containers for:
+This project is containerized using Docker and Docker-Compose and runs with separate containers for:
 
 - Django ASGI application (Daphne)
 - PostgreSQL database
@@ -311,7 +290,7 @@ This project runs with separate containers for:
 
 Clone repository:
 
-git clone <repository-url>
+git clone https://github.com/Furqan666-uno/car_booking_purchasing-.git
 
 Go inside project:
 
@@ -325,32 +304,73 @@ To stop containers:
 
 docker compose down
 
-## API Documentation
+---
 
-Swagger UI:
+## Deployment (Live Demo)
 
-/api/docs/
+This project is containerized using Docker and deployed on Railway.
+
+Backend API:
+https://django-app-production-8021.up.railway.app
+
+API Documentation:
+https://django-app-production-8021.up.railway.app/api/docs/
 
 OpenAPI Schema:
+https://django-app-production-8021.up.railway.app/api/schema/
 
-/api/schema/
+Admin Panel:
+https://django-app-production-8021.up.railway.app/admin/
+
+
+## Deployment Architecture
+
+The application uses separate services:
+
+- Django ASGI application (Daphne)
+- PostgreSQL database
+- Redis server
+- Celery worker
+
+## Environment Variables
+
+The application uses environment variables for sensitive configuration.
+
+SECRET_KEY=
+DEBUG=
+DATABASE_URL=
+REDIS_URL=
+EMAIL_HOST=
+EMAIL_HOST_USER=
+EMAIL_HOST_PASSWORD=
+
+## Screenshots
+
+### Swagger API Documentation:
+
+![Swagger](<screenshots/Screenshot 2026-06-20 225621.png>)
+![Swagger](<screenshots/Screenshot 2026-06-20 225645.png>)
+![Swagger](<screenshots/Screenshot 2026-06-20 225711.png>)
+![Swaggger](<screenshots/Screenshot 2026-06-20 225754.png>)
+
+### Admin Panel:
+
+![Admin](<screenshots/Screenshot 2026-06-23 143506.png>)
+
+### Features: 
+
+![Features](<screenshots/Screenshot 2026-06-23 142903.png>) 
+![Features](<screenshots/Screenshot 2026-06-23 142828.png>)
+
+### Deployment Architecture:
+
+![Deployed](<screenshots/Screenshot 2026-06-22 214806.png>)
 
 ---
 
-## Learning Outcomes
+## Notes:
 
-This project can helped gain experience with:
+* This is a demo deployment. The server may sleep or restart during inactivity.
+* The password-reset functionality is disabled in the deployed demo environment to prevent misuse of the service and unnecessary email requests.
 
-* REST API Design
-* JWT Authentication
-* PostgreSQL
-* Django ORM
-* WebSockets
-* Redis
-* Celery
-* Role-Based Access Control
-* Transaction Management
-* Background Processing
-* Real-Time Communication
-* Dockerization
-* API Documentation
+---
